@@ -10,13 +10,18 @@ cells.forEach((cell) => cell.addEventListener("click", cellClicked)); //add even
 
 let startingGameState = ["", "", "", "", "", "", "", "", ""];
 
+let gameOver = false;
+
 function cellClicked() {
-  const cellIndex = this.getAttribute("cellIndex");
-  //console.log(cellIndex);
-  if (startingGameState[cellIndex] == "") {
-    //only update content if no player has selected it before
-    updateCellContent(this); //pass this specific cell to have its content updated.
-  }
+    if (gameOver) {
+        return;
+    }
+    const cellIndex = this.getAttribute("cellIndex");
+    //console.log(cellIndex);
+    if (startingGameState[cellIndex] == "") {
+        //only update content if no player has selected it before
+        updateCellContent(this); //pass this specific cell to have its content updated.
+    }
 }
 
 function updateCellContent(cell) {
@@ -66,23 +71,24 @@ function winninglogic() {
       val2 !== "" &&
       val3 !== ""
     ) {
-      //console.log('Winner is ' + val1)
       winnerDetails.innerText = "Winner is " + val1;
-      iswin = true;
+      gameOver = true;
       return;
     }
 
     if (!startingGameState.includes("")) {
       winnerDetails.innerText = "Draw!";
+      gameOver = true;
     }
   }
 }
+
 
 function resetGame() {
   for (let cellValue of cells) {
     cellValue.innerText = "";
     winnerDetails.innerText = "";
     startingGameState = ["", "", "", "", "", "", "", "", ""];
-    enabled();
   }
+  gameOver = false;
 }
