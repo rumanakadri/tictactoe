@@ -83,5 +83,6 @@ function resetGame() {
     cellValue.innerText = "";
     winnerDetails.innerText = "";
     startingGameState = ["", "", "", "", "", "", "", "", ""];
+    enabled();
   }
 }
